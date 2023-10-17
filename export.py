@@ -70,7 +70,7 @@ if platform.system() != 'Windows':
 from models.experimental import attempt_load
 from models.yolo import ClassificationModel, Detect, DetectionModel, SegmentationModel
 from utils.dataloaders import LoadImages
-from utils.general import (LOGGER, Profile, check_dataset, check_img_size, check_requirements, check_version,
+from utils.general import (LOGGER, Profile, check_dataset, check_img_size, check_version,
                            check_yaml, colorstr, file_size, get_default_args, print_args, url2file, yaml_save)
 from utils.torch_utils import select_device, smart_inference_mode
 
@@ -151,7 +151,6 @@ def export_torchscript(model, im, file, optimize, prefix=colorstr('TorchScript:'
 @try_export
 def export_onnx(model, im, file, opset, dynamic, simplify, prefix=colorstr('ONNX:')):
     # YOLOv5 ONNX export
-    check_requirements('onnx>=1.12.0')
     import onnx
 
     LOGGER.info(f'\n{prefix} starting export with onnx {onnx.__version__}...')
@@ -319,7 +318,7 @@ def export_engine(model, im, file, half, dynamic, simplify, workspace=4, verbose
         import tensorrt as trt
     except Exception:
         if platform.system() == 'Linux':
-            check_requirements('nvidia-tensorrt', cmds='-U --index-url https://pypi.ngc.nvidia.com')
+            pass
         import tensorrt as trt
 
     if trt.__version__[0] == '7':  # TensorRT 7 handling https://github.com/ultralytics/yolov5/issues/6012
